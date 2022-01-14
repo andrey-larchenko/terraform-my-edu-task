@@ -6,8 +6,8 @@ resource "aws_security_group" "andrey_security_gr_001" {
   name          = "terraform-example-sg-01"
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
+    from_port   = var.httpd_port
+    to_port     = var.httpd_port
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -20,7 +20,7 @@ resource "aws_instance" "andrey_instance_001" {
   user_data               = <<-EOF
                             #!/bin/bash
                             echo "Hello, World!" > index.html
-                            nohup busybox httpd -f -p 8080 &
+                            nohup busybox httpd -f -p ${var.httpd_port} &
                             EOF
   tags                    = {
     Name                  = "terraform-example-01"
