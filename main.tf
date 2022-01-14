@@ -32,3 +32,9 @@ variable "httpd_port" {
   type          = number
   default       = 8080
   }
+
+output "public_ip" {
+  value         = aws_instance.andrey_instance_001.public_ip
+  description   = "The public IP address of the web server"
+  #sensitive     = true
+}
